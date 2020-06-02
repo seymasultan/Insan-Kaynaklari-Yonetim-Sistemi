@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Başvurduğunuz İlanlar - Intern</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+</head>
+
+<style>
+    .btnDiv {
+        width: 100%;
+        left: 0;
+        bottom: 10px;
+        position: absolute;
+    }
+</style>
+
+<body>
+<!-- Kullanıcı girişi yapıldıysa -->
+<span th:if="${activeUser.isim != null}" class="error">
+
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+        <h5 class="my-0 mr-md-auto font-weight-normal"><a th:href="@{/}">Ana Sayfa</a></h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="btn btn-outline-primary" th:href="@{/userPage}"><span th:text="(${activeUser.isim})"></span></a>
+    <a class="btn btn-outline-primary" th:href="@{/logout}">Çıkış Yap </a>
+    </nav>
+    </div>
+
+
+   <div style="margin: 20px">
+            <h2>Başvurularınız</h2>
+            <hr>
+
+            <div class="card-deck mb-3 text-center">
+
+                <div th:each="advert : ${advertList}" id="jobCard" class="card carddeck" style="min-width: 300px; margin: 10px">
+                    <div id="cardBody" class="card-body">
+                        <h4 th:text="${advert.title}" id="cardTitle" class="card-title"></h4>
+                        <p th:text="${advert.summary}" id="cardSummary" class="card-text">İş ilanı hakkında bazı bilgiler.</p>
+                        <br/>
+                        <span class="btnDiv">
+                        <a class="btn btn-primary align-bottom" th:href="@{/advert/{path}(path=${advert.id})}">İncele</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script th:src="@{../static/js/bootstrap.js}" src="../static/js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/holderjs@2.9.4/holder.js"></script>
+    <script>
+        Holder.addTheme('thumb', {
+            bg: '#55595c',
+            fg: '#eceeef',
+            text: 'Thumbnail'
+        });
+    </script>
+</span>
+
+<!--- Kullanıcı girişi yapılmadıysa --->
+<span th:if="${activeUser == null}" class="error">
+    <meta http-equiv="refresh" content="0; url=/login"/>
+</span>
+</body>
+</html>

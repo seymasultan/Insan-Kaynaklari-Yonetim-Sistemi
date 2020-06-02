@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>İlan Detayı </title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+</head>
+<body>
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <h5 class="my-0 mr-md-auto font-weight-normal"><a th:href="@{/}">Ana Sayfa</a></h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+
+         <span th:if="${activeUser.isim != null && activeHr.hrAd ==null}" class="error">
+             <a class="btn btn-outline-primary" th:href="@{/userPage}"><span th:text="(${activeUser.isim})"></span></a>
+             <a class="btn btn-outline-primary" th:href="@{/logout}">Çıkış Yap</a>
+        </span>
+        <span th:if="${activeUser.isim == null && activeHr.hrAd !=null}" class="error">
+            <a class="btn btn-outline-primary" th:href="@{/hrProfilPage}"><span th:text="(${activeHr.hrAd})"></span></a>
+            <a class="btn btn-outline-primary" th:href="@{/logout}">Çıkış Yap</a>
+        </span>
+
+        <span th:if="${activeUser.isim == null && activeHr.hrAd==null}" class="error">
+            <a class="btn btn-outline-primary" th:href="@{/login}">Giriş Yap</a>
+            <a class="btn btn-outline-primary" th:href="@{/signUp}">Kayıt Ol</a>
+        </span>
+    </nav>
+</div>
+
+
+<div class="container" th:object="${advert}">
+
+
+    <div class="jumbotron text-center">
+        <h1 class="display-3"><span th:text="*{title}"></span></h1>
+        <p class="lead"><span th:text="*{summary}"></span></p>
+        <span th:if="${isHR == false}">
+            <span th:if="${isUser==false}">
+                <p><a class="btn btn-lg btn-success" th:href="@{/login}" role="button">Üye Girişi Yapın</a></p>
+            </span>
+            <span th:if="${isUser==true && isApply==false}">
+                <p><a class="btn btn-lg btn-success" th:href="@{/advert/{path}/apply(path=${advert.id})}" role="button">Başvur</a></p>
+            </span>
+             <span th:if="${isUser==true && isApply==true}">
+                <p><a class="btn btn-lg btn-warning" th:href="@{/advert/{path}/deleteApply(path=${advert.id})}" role="button">Başvuruyu Çek</a></p>
+            </span>
+        </span>
+            <span th:if="${isHR == true}">
+                <p><a class="btn btn-lg btn-primary" th:href="@{/advert/{path}/edit(path=${advert.id})}" role="button">Düzenle</a>
+                    <a class="btn btn-lg btn-secondary" th:href="@{/advert/{path}/applies(path=${advert.id})}" role="button">Başvurular</a></p>
+            </span>
+
+    </div>
+
+    <h4>İş Açıklaması</h4>
+    <p class="lead"><span th:text="*{jobDescription}"></span></p>
+    <br/>
+
+    <div class="row marketing">
+        <div class="col-lg-6">
+            <h4>Aranan Kişisel Özellikler</h4>
+            <p><span th:text="*{personalInfo}"></span></p>
+        </div>
+
+        <div class="col-lg-6">
+            <h4>Aranan Profesyonel Özellikler</h4>
+            <p><span th:text="*{professionalInfo}"></span></p>
+        </div>
+    </div>
+
+    <h4>Yayınlanma Tarihi ve Sona Erme Tarihi</h4>
+    <p><span th:text="*{activationTimeString}"></span> - <span th:text="*{disableTimeString}"></span></p>
+
+
+
+</div> <!-- /container -->
+
+</body>
+</html>

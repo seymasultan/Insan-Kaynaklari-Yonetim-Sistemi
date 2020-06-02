@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>İlanı Düzenle </title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+</head>
+
+<body>
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <h5 class="my-0 mr-md-auto font-weight-normal"><a th:href="@{/}">Ana Sayfa</a></h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="btn btn-outline-primary" th:href="@{/hrProfilPage}">IK Sayfası (<span th:text="${activeHr.hrAd}"></span>)</a>
+        <a class="btn btn-outline-primary" th:href="@{/logout}">Çıkış Yap</a>
+    </nav>
+</div>
+
+<form class="form-horizontal" style="margin: 20px" th:object="${advert}"
+      accept-charset="UTF-8" role="form" method="post" th:action="@{/advert/{path}/edit(path=${advert.id})}">
+    <fieldset>
+
+        <h2>İş İlanını Düzenle</h2>
+        <hr>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-5 control-label" for="baslik">İlan Başlığı</label>
+            <div class="col-md-5">
+                <input id="baslik" name="baslik" th:field="*{title}" type="text" placeholder="" class="form-control input-md">
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-5 control-label" for="personal">Aranan Kişisel Özellikler</label>
+            <div class="col-md-5">
+                <input id="personal" name="personal" th:field="*{personalInfo}" type="text" placeholder="" class="form-control input-md">
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-5 control-label" for="professional">Aranan Profesyonel Özellikler</label>
+            <div class="col-md-5">
+                <input id="professional" name="professional" th:field="*{professionalInfo}" type="text" placeholder="" class="form-control input-md">
+            </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="col-md-5 control-label" for="summary">İlan İçeriği Hakkında Kısa Bilgi</label>
+            <div class="col-md-5">
+                <textarea class="form-control" id="summary" th:field="*{summary}" name="summary"></textarea>
+            </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="form-group">
+            <label class="col-md-5 control-label" for="icerik">İlan İçeriği</label>
+            <div class="col-md-5">
+                <textarea class="form-control" id="icerik" th:field="*{jobDescription}" name="icerik"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group ">
+            <label class="col-md-5 ">Yayınlanma Tarihi</label>
+            <div style="padding-left: 15px">
+                <input type="date" name="bday" max="3000-12-31" min="2019-07-17" th:field="*{activationTimeString}" class="form-control col-md-4">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-5">Yayından Kaldırılma Tarihi</label>
+            <div style="padding-left: 15px">
+                <input type="date" name="bday" min="1000-01-01" max="2020-12-31" th:field="*{disableTimeString}" class="form-control col-md-4">
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="save"></label>
+            <div class="col-md-4">
+                <button id="save" name="save" class="btn btn-primary" type="submit">İlanı Kaydet</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-danger" th:href="@{/advert/{path}/delete(path=${advert.id})}">İlanı Sil</a>
+        </div>
+    </fieldset>
+</form>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script th:src="@{../static/js/bootstrap.js}" src="../static/js/bootstrap.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/holderjs@2.9.4/holder.js"></script>
+<script>
+    Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+    });
+</script>
+</body>
+</html>
