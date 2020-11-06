@@ -1,5 +1,0 @@
-# BMT-308-WEB-PROGRAMLAMA
-İNSAN KAYNAKLARI YÖNETİM SİSTEMİ
-Grup 16
-Şeyma Sultan Sözen-171816046
-Şükriye Çavdar-161816057 
